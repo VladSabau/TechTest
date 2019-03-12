@@ -1,0 +1,99 @@
+buildscript {
+    repositories {
+        jcenter()
+        google()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+}
+
+apply plugin: 'com.android.application'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion rootProject.ext.targetSdkVersion
+    buildToolsVersion '28.0.3'
+    defaultConfig {
+        applicationId "babylon.test"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [toothpick_registry_package_name: 'babylon.test']
+                // NOTE: based on https://github.com/stephanenicolas/toothpick/wiki/Factory-and-Member-Injector-registries#example--application-with-3-libraries
+            }
+        }
+    }
+
+    flavorDimensions "1"
+    productFlavors {
+        dev {
+            resValue "string", "app_name", "Babylon Test Dev"
+
+            buildConfigField "String", "ENDPOINT_BASE", "\"${project.endpointPrefix}${project.host}\""
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:palette-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation "com.android.support.constraint:constraint-layout:1.1.3"
+
+    testImplementation 'junit:junit:4.12'
+
+    // Rx
+    implementation "com.jakewharton.rxrelay2:rxrelay:${project.versionRxRelay}"
+    implementation "com.jakewharton.rxbinding2:rxbinding:${project.versionRxBinding}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4:${project.versionRxBinding}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${project.versionRxBinding}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${project.versionRxBinding}"
+
+    // Dependency Injection
+    implementation "com.github.stephanenicolas.toothpick:smoothie:$versionToothpick"
+    implementation "com.github.stephanenicolas.toothpick:toothpick-runtime:$versionToothpick"
+    annotationProcessor "com.github.stephanenicolas.toothpick:toothpick-compiler:$versionToothpick"
+    testAnnotationProcessor "com.github.stephanenicolas.toothpick:toothpick-compiler:$versionToothpick"
+    testImplementation "com.github.stephanenicolas.toothpick:toothpick-testing:$versionToothpick"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$versionRetrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versionRetrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$versionRetrofit"
+    implementation "com.squareup.retrofit2:retrofit-mock:$versionMockRetrofit"
+
+    implementation "com.squareup.okhttp3:okhttp:$versionOkHttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versionOkHttp"
+
+    implementation "com.facebook.stetho:stetho:${project.versionStetho}"
+    implementation "com.facebook.stetho:stetho-okhttp3:${project.versionStetho}"
+
+    implementation "com.google.code.gson:gson:${project.versionGson}"
+
+    // serialization util
+    implementation "org.parceler:parceler-api:${project.versionParceler}"
+    annotationProcessor "org.parceler:parceler:${project.versionParceler}"
+
+    implementation "com.jakewharton:butterknife:${project.versionButterKnife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${project.versionButterKnife}"
+
+    implementation "com.jakewharton.timber:timber:$versionTimber"
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+}
