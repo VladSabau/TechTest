@@ -14,5 +14,5 @@ interface PostDetailsView extends MvpView {
 
     void showErrorLoadingPost();
 
-    void loadPost(PostDetailsModel model);
+    void loadPostDetail(PostDetailsModel model);
 }

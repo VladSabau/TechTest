@@ -83,7 +83,7 @@ public class PostDetailsActivity extends BaseActivity implements PostDetailsView
     }
 
     @Override
-    public void loadPost(PostDetailsModel model) {
+    public void loadPostDetail(PostDetailsModel model) {
         postName.setText(model.getPost().getTitle());
         postBody.setText(model.getPost().getBody());
         username.setText(model.getUser().getUsername());

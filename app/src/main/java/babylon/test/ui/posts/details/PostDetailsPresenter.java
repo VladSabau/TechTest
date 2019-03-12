@@ -61,7 +61,7 @@ public class PostDetailsPresenter extends BasePresenter<PostDetailsView> {
     }
 
     private void successLoadingPost(PostDetailsModel model) {
-        view.loadPost(model);
+        view.loadPostDetail(model);
     }
 
     private void errorLoadingPosts(Throwable error) {
