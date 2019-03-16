@@ -23,7 +23,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -60,6 +60,13 @@ dependencies {
 
     testImplementation "junit:junit:$versionJUnit"
     testImplementation "io.mockk:mockk:$versionMockK"
+    androidTestImplementation "androidx.test:runner:$versionAndroidTest"
+    androidTestImplementation "androidx.test:core:$versionAndroidTest"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versionEspresso"
+    androidTestImplementation "androidx.test:rules:$versionAndroidTest"
+    androidTestImplementation "androidx.test.ext:junit:$versionAndroidTest"
+    implementation "androidx.test.espresso:espresso-idling-resource:$versionEspresso"
+    androidTestImplementation "com.agoda.kakao:kakao:$versionKakao"
 
     // Rx
     implementation "com.jakewharton.rxrelay2:rxrelay:$versionRxRelay"

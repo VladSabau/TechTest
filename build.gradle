@@ -50,6 +50,9 @@ project.ext {
     versionOkHttp = '3.11.0'
     versionStetho = '1.5.0'
     versionParceler = '1.1.12'
+    versionEspresso = '3.2.0-alpha02'
+    versionAndroidTest = '1.1.0'
+    versionKakao = '2.0.0-support'
 
     endpointPrefix = 'http://'
     host = 'jsonplaceholder.typicode.com'

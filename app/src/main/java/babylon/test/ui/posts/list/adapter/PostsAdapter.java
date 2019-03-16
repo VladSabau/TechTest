@@ -34,7 +34,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
     public void onBindViewHolder(PostsViewHolder holder, int position) {
         Post post = posts.get(position);
 
-        holder.name.setText(post.getTitle());
+        holder.title.setText(post.getTitle());
         holder.layout.setOnClickListener(view -> listener.onPostClick(post));
     }
 
@@ -69,8 +69,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         @BindView(R.id.post_layout)
         ViewGroup layout;
 
-        @BindView(R.id.post_name)
-        TextView name;
+        @BindView(R.id.post_title)
+        TextView title;
 
         PostsViewHolder(View itemView) {
             super(itemView);

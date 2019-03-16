@@ -19,7 +19,7 @@ import static babylon.test.ui.posts.list.PostsActivity.POST;
 public class PostDetailsActivity extends BaseActivity implements PostDetailsView {
 
     @BindView(R.id.post_title)
-    protected TextView postName;
+    protected TextView postTitle;
 
     @BindView(R.id.post_body)
     protected TextView postBody;
@@ -84,7 +84,7 @@ public class PostDetailsActivity extends BaseActivity implements PostDetailsView
 
     @Override
     public void loadPostDetail(PostDetailsModel model) {
-        postName.setText(model.getPost().getTitle());
+        postTitle.setText(model.getPost().getTitle());
         postBody.setText(model.getPost().getBody());
         username.setText(model.getUser().getUsername());
         numberComments.setText(String.valueOf(model.getComments().size()));

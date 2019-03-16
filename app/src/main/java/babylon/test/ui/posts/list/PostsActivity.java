@@ -15,12 +15,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.idling.CountingIdlingResource;
 import babylon.test.R;
 import babylon.test.data.posts.model.Post;
 import babylon.test.ui.BaseActivity;
+import babylon.test.ui.posts.details.PostDetailsActivity;
 import babylon.test.ui.posts.list.adapter.OnPostClickListener;
 import babylon.test.ui.posts.list.adapter.PostsAdapter;
-import babylon.test.ui.posts.details.PostDetailsActivity;
 import butterknife.BindView;
 
 public class PostsActivity extends BaseActivity implements PostsView, OnPostClickListener {
@@ -42,6 +43,8 @@ public class PostsActivity extends BaseActivity implements PostsView, OnPostClic
 
     @Inject
     protected PostsAdapter postsAdapter;
+
+    private CountingIdlingResource espressoTestIdlingResource = new CountingIdlingResource("Network_Call");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class PostsActivity extends BaseActivity implements PostsView, OnPostClic
     @Override
     public void onResume() {
         super.onResume();
+        espressoTestIdlingResource.increment();
         presenter.onScreenLoad();
     }
 
@@ -87,13 +91,15 @@ public class PostsActivity extends BaseActivity implements PostsView, OnPostClic
 
     @Override
     public void updatePosts(List<Post> posts) {
+        espressoTestIdlingResource.decrement();
         noPostLabel.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
         postsAdapter.update(posts);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showNoPostsAvailable() {
+        espressoTestIdlingResource.decrement();
         noPostLabel.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
     }
@@ -110,5 +116,9 @@ public class PostsActivity extends BaseActivity implements PostsView, OnPostClic
     @Override
     public void onPostClick(Post post) {
         presenter.onPostClick(post);
+    }
+
+    public CountingIdlingResource getEspressoIdlingResourceForPostsActivity() {
+        return espressoTestIdlingResource;
     }
 }

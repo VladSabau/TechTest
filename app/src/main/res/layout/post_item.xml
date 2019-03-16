@@ -6,7 +6,7 @@
     android:layout_margin="@dimen/padding_post_item">
 
     <TextView
-        android:id="@+id/post_name"
+        android:id="@+id/post_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
