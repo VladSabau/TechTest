@@ -51,6 +51,7 @@ public class PostsPresenter extends BasePresenter<PostsView> {
     }
 
     public void onPostClick(Post post) {
+        // if needed add more logic
         view.openPostDetail(post);
     }
 }

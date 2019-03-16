@@ -1,29 +1,20 @@
 package babylon.test.ui.posts.details
 
-import babylon.test.RxImmediateSchedulerRule
-import babylon.test.data.comments.model.Comment
+import babylon.test.BaseTest
 import babylon.test.data.comments.usecase.CommentsUseCase
-import babylon.test.data.posts.model.Post
-import babylon.test.data.users.model.User
 import babylon.test.data.users.usecase.UsersUseCase
-import babylon.test.ui.posts.CommentBuilder
-import babylon.test.ui.posts.PostBuilder
-import babylon.test.ui.posts.UserBuilder
-import io.mockk.*
+import io.mockk.clearMocks
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import io.reactivex.Observable
-import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 /**
  * Created by Vlad Sabau on 12.03.19.
  */
-class PostDetailsPresenterTest {
-
-    @Rule
-    @JvmField
-    var testSchedulerRule = RxImmediateSchedulerRule()
+class PostDetailsPresenterTest: BaseTest() {
 
     private val usersUseCase = mockk<UsersUseCase>(relaxed = true)
     private val commentsUseCase = mockk<CommentsUseCase>(relaxed = true)
@@ -49,7 +40,7 @@ class PostDetailsPresenterTest {
 
     @Test
     fun `when screen loads and Post and rx call throws error show error message`() {
-        val post = getMockPost()
+        val post = getMockPost(1, 1, "Title 1", "Body 1")
 
         every { view.post } returns post
         every { usersUseCase.getUserById(post.userId) } returns Observable.error(Throwable("Error"))
@@ -65,8 +56,8 @@ class PostDetailsPresenterTest {
 
     @Test
     fun `when screen loads and Post with User and Comment load details`() {
-        val post = getMockPost()
-        val user = getMockUser()
+        val post = getMockPost(1, 1, "Title 1", "Body 1")
+        val user = getMockUser(1, "Vlad", "VladSabau", "vlad@email.com")
         val comments = getMockComments()
 
         every { view.post } returns post
@@ -79,45 +70,6 @@ class PostDetailsPresenterTest {
         verify(exactly = 1) { view.startProgressIndicator() }
         verify(exactly = 1) { view.loadPostDetail(any()) }
         verify(exactly = 1) { view.stopProgressIndicator() }
-    }
-
-    @After
-    fun afterTests() {
-        unmockkAll()
-    }
-
-    private fun getMockPost(): Post {
-        return PostBuilder()
-                .withId(1)
-                .withUserId(1)
-                .withTitle("Title")
-                .withBody("Body")
-                .build()
-    }
-
-    private fun getMockUser(): User {
-        return UserBuilder()
-                .withId(1)
-                .withName("Name")
-                .withUsername("Username")
-                .withEmail("Email")
-                .build()
-    }
-
-    private fun getMockComments(): List<Comment> {
-        val comments = ArrayList<Comment>()
-        comments.add(getMockComment())
-
-        return comments
-    }
-
-    private fun getMockComment(): Comment {
-        return CommentBuilder()
-                .withId(1)
-                .withPostId(1)
-                .withName("Comment name")
-                .withEmail("Comment email")
-                .build()
     }
 }
 

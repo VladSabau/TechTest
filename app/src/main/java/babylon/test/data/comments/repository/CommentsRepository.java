@@ -26,7 +26,7 @@ public class CommentsRepository {
     }
 
     public Observable<List<Comment>> getCommentsByPostId(int postId) {
-        return service.getComments()
+        return fetchComments()
                 .map(comments -> getCommentsByPostId(comments, postId));
     }
 
