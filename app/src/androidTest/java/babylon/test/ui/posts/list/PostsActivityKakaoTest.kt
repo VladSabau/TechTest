@@ -1,9 +1,8 @@
-package babylon.test
+package babylon.test.ui.posts.list
 
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import babylon.test.ui.posts.list.PostsActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -59,13 +58,6 @@ class PostsActivityKakaoTest {
                     title {
                         isDisplayed()
                         hasText("eum et est occaecati")
-                    }
-                }
-
-                childWith<PostsKakaoScreen.Item> { withDescendant { withText("magnam facilis autem") } } perform {
-                    title {
-                        isDisplayed()
-                        hasText("magnam facilis autem")
                     }
                 }
             }

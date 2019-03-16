@@ -1,6 +1,7 @@
-package babylon.test
+package babylon.test.ui.posts.list
 
 import android.view.View
+import babylon.test.R
 import com.agoda.kakao.common.views.KView
 import com.agoda.kakao.recycler.KRecyclerItem
 import com.agoda.kakao.recycler.KRecyclerView
@@ -19,7 +20,7 @@ class PostsKakaoScreen : Screen<PostsKakaoScreen>() {
     val postsRecycler: KRecyclerView = KRecyclerView({
         withId(R.id.posts_recycler_view)
     }, itemTypeBuilder = {
-        itemType(::Item)
+        itemType(PostsKakaoScreen::Item)
     })
 
     class Item(parent: Matcher<View>) : KRecyclerItem<Item>(parent) {
