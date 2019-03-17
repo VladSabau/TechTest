@@ -24,8 +24,14 @@ public class PostDetailsActivity extends BaseActivity implements PostDetailsView
     @BindView(R.id.post_body)
     protected TextView postBody;
 
+    @BindView(R.id.layout_username)
+    protected View layoutUsername;
+
     @BindView(R.id.username)
     protected TextView username;
+
+    @BindView(R.id.layout_comments)
+    protected View layoutComments;
 
     @BindView(R.id.number_comments)
     protected TextView numberComments;
@@ -84,6 +90,10 @@ public class PostDetailsActivity extends BaseActivity implements PostDetailsView
 
     @Override
     public void loadPostDetail(PostDetailsModel model) {
+        postTitle.setVisibility(View.VISIBLE);
+        postBody.setVisibility(View.VISIBLE);
+        layoutUsername.setVisibility(View.VISIBLE);
+        layoutComments.setVisibility(View.VISIBLE);
         postTitle.setText(model.getPost().getTitle());
         postBody.setText(model.getPost().getBody());
         username.setText(model.getUser().getUsername());

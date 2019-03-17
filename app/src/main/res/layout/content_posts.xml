@@ -20,6 +20,9 @@
         android:layout_marginStart="@dimen/lateral_margin"
         android:layout_marginEnd="@dimen/lateral_margin"
         android:gravity="center"
-        android:text="@string/posts_not_available" />
+        android:text="@string/posts_not_available"
+        android:visibility="gone" />
+
+    <include layout="@layout/progressbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

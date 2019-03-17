@@ -3,4 +3,7 @@
     <dimen name="padding_post_item">16dp</dimen>
     <dimen name="lateral_margin">16dp</dimen>
     <dimen name="small_margin">4dp</dimen>
+    <dimen name="post_title_size">16sp</dimen>
+    <dimen name="post_body_size">14sp</dimen>
+    <dimen name="progress_size">50dp</dimen>
 </resources>
