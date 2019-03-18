@@ -63,6 +63,7 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$versionAndroidTest"
     androidTestImplementation "androidx.test:core:$versionAndroidTest"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versionEspresso"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$versionEspresso"
     androidTestImplementation "androidx.test:rules:$versionAndroidTest"
     androidTestImplementation "androidx.test.ext:junit:$versionAndroidTest"
     implementation "androidx.test.espresso:espresso-idling-resource:$versionEspresso"

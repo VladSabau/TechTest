@@ -3,10 +3,10 @@ package babylon.test.ui.posts.list
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import babylon.test.PostDetailsKakaoScreen
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
 
 
 /**
@@ -19,14 +19,16 @@ class PostsActivityKakaoTest {
     @Rule
     val testRule = ActivityTestRule<PostsActivity>(PostsActivity::class.java)
 
-    private val kakaoScreen = PostsKakaoScreen()
+    private val kakaoPostsScreen = PostsKakaoScreen()
+
+    private val kakaoDetailsScreen = PostDetailsKakaoScreen()
 
     @Test
     fun initialViewsDisplayedProperly() {
         val postsActivityIdlingResource = testRule.activity.espressoIdlingResourceForPostsActivity
         IdlingRegistry.getInstance().register(postsActivityIdlingResource)
 
-        kakaoScreen {
+        kakaoPostsScreen {
             noPostsTextView {
                 isNotDisplayed()
             }
@@ -44,7 +46,7 @@ class PostsActivityKakaoTest {
         val postsActivityIdlingResource = testRule.activity.espressoIdlingResourceForPostsActivity
         IdlingRegistry.getInstance().register(postsActivityIdlingResource)
 
-        kakaoScreen {
+        kakaoPostsScreen {
             postsRecycler {
                 isVisible()
                 hasSize(100)
@@ -58,6 +60,41 @@ class PostsActivityKakaoTest {
                     title {
                         isDisplayed()
                         hasText("eum et est occaecati")
+                    }
+                }
+            }
+        }
+
+        IdlingRegistry.getInstance().unregister(postsActivityIdlingResource)
+    }
+
+    @Test
+    fun checkIfDetailsActivityIsOpened() {
+        val postsActivityIdlingResource = testRule.activity.espressoIdlingResourceForPostsActivity
+        IdlingRegistry.getInstance().register(postsActivityIdlingResource)
+
+        kakaoPostsScreen {
+            postsRecycler {
+                firstChild<PostsKakaoScreen.Item> {
+                    isVisible()
+                    perform {
+                        click()
+
+                        // details screen
+                        kakaoDetailsScreen {
+                            titleTextView {
+                                isDisplayed()
+                            }
+                            bodyTextView {
+                                isDisplayed()
+                            }
+                            usernameTextView {
+                                isDisplayed()
+                            }
+                            nbCommentsTextView {
+                                isDisplayed()
+                            }
+                        }
                     }
                 }
             }
